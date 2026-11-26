@@ -8,9 +8,9 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const entry =
   "Sorry \u2014 I heard 'call Mom' as 'call the mob,' so your mother and three men named Vinny are now on the line.";
 
-// Gate: the scorer only accepts UTF-8 text of 1 to 140 characters.
-if (entry.trim().length === 0 || entry.length > 140) {
-  throw new Error(`Entry is ${entry.length} characters; must be 1-140.`);
+// Gate: the scorer only accepts UTF-8 text of 1 to 140 characters, on one line.
+if (entry.trim().length === 0 || entry.length > 140 || /[\r\n]/.test(entry)) {
+  throw new Error(`Entry is ${entry.length} characters; must be 1-140 characters on one line.`);
 }
 
 mkdirSync("/output", { recursive: true });
